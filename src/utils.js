@@ -1,0 +1,8 @@
+const ucFirst = function (str) {
+  if (!str) {
+    return str;
+  } else {
+    return str[0].toUpperCase() + str.slice(1);
+  }
+};
+export {ucFirst};
