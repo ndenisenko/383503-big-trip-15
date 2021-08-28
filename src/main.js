@@ -1,6 +1,5 @@
 import { createEditionForm } from './view/form-of-edition.js';
 import { createFilters } from './view/filters.js';
-import { creationForm } from './view/form-of-creation.js';
 import { createNavigation } from './view/menu.js';
 import { createPoint } from './view/route-point.js';
 import { createRouteInfo } from './view/route-info.js';
@@ -15,11 +14,9 @@ const render = (container, layout, position) => {
 };
 
 const points = new Array(POINT_COUNT).fill().map(generatePoint);
-console.log(points);
 
 const tripMain = document.querySelector('.trip-main');
 render(tripMain, createRouteInfo(points[0]), 'afterbegin');
-
 const tripInfo = document.querySelector('.trip-info');
 render(tripInfo, createTripPrice(), 'beforeend');
 
@@ -40,6 +37,3 @@ const eventEdit = document.querySelector('.event--edit');
 for (let i = 1; i < POINT_COUNT; i++) {
   render(eventEdit, createPoint(points[i]), 'afterend');
 }
-
-const eventDestination = document.querySelector('.event__section--destination');
-render(eventDestination, creationForm(), 'afterend');

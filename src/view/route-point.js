@@ -1,12 +1,15 @@
-import {ucFirst} from '../utils.js';
+import {ucFirst} from '../utils/utils.js';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration.js';
+export {createPoint};
 
-const createPointOffer = (offers) => {
+function createPointOffer (offers) {
   let result = '';
+
   if (Object.keys(offers).length !== 0) {
     const map = new Map(Object.entries(offers));
     const offersArray = map.get('offers');
+
     for (const offer of offersArray) {
       result += `<li class="event__offer">
       <span class="event__offer-title">${offer.title}</span>
@@ -17,13 +20,15 @@ const createPointOffer = (offers) => {
   } else {
     result = '';
   }
+
   return result;
-};
+}
 
 function getDiff(firstDate, secondDate) {
   dayjs.extend(duration);
   let result = '';
   const diff = dayjs.duration(dayjs(secondDate).diff(dayjs(firstDate)));
+
   if (diff.days()) {
     result = diff.days() < 10 ? `0${diff.days()}D` : `${diff.days()}D`;
   }
@@ -36,19 +41,16 @@ function getDiff(firstDate, secondDate) {
   return result;
 }
 
-export const createPoint = (point) => {
+function createPoint (point) {
   const {
-    type = 'taxi',
-    city = 'Paris',
+    type = '',
+    city = '',
     offers = {},
     basePrice = 0,
     dateFrom = dayjs(),
-    dateTo = dayjs().add(1, 'day'),
-    id = 0,
+    dateTo = dayjs(),
     isFavorite = false,
-    destination = {},
   } = point;
-  const favoriteClassName = isFavorite ? 'event__favorite-btn--active' : '';
 
   return `<ul class="trip-events__list">
   <li class="trip-events__item">
@@ -60,9 +62,9 @@ export const createPoint = (point) => {
       <h3 class="event__title">${type} ${ucFirst(city)}</h3>
       <div class="event__schedule">
         <p class="event__time">
-          <time class="event__start-time" datetime="${dayjs(dateFrom).format('YYYY-MM-DDTHH:MM')}">${dayjs(dateFrom).format('HH:MM')}</time>
+          <time class="event__start-time" datetime="${dayjs(dateFrom).format('YYYY-MM-DDTHH:MM')}">${dayjs(dateFrom).format('hh:mm')}</time>
           &mdash;
-          <time class="event__end-time" datetime="${dayjs(dateTo).format('YYYY-MM-DDTHH:MM')}">${dayjs(dateTo).format('HH:MM')}</time>
+          <time class="event__end-time" datetime="${dayjs(dateTo).format('YYYY-MM-DDTHH:MM')}">${dayjs(dateTo).format('hh:mm')}</time>
         </p>
         <p class="event__duration">${getDiff(dateFrom, dateTo)}</p>
       </div>
@@ -73,7 +75,7 @@ export const createPoint = (point) => {
       <ul class="event__selected-offers">
       ${createPointOffer(offers)}
       </ul>
-      <button class="event__favorite-btn ${favoriteClassName}" type="button">
+      <button class="event__favorite-btn ${isFavorite ? 'event__favorite-btn--active' : ''}" type="button">
         <span class="visually-hidden">Add to favorite</span>
         <svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
           <path d="M14 21l-8.22899 4.3262 1.57159-9.1631L.685209 9.67376 9.8855 8.33688 14 0l4.1145 8.33688 9.2003 1.33688-6.6574 6.48934 1.5716 9.1631L14 21z"/>
@@ -85,4 +87,4 @@ export const createPoint = (point) => {
     </div>
   </li>
 </ul>`;
-};
+}
