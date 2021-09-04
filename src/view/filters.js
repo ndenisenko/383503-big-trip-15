@@ -1,3 +1,5 @@
+import {createElement} from '../utils/utils.js';
+
 const FILTERS = {
   everything: true,
   future: false,
@@ -16,4 +18,26 @@ function createFilters () {
   </form>`;
 }
 
-export {createFilters};
+class Filters {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createFilters();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export {Filters};

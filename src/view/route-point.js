@@ -1,7 +1,17 @@
 import {ucFirst} from '../utils/utils.js';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration.js';
-export {createPoint};
+import {createElement} from '../utils/utils.js';
+
+const BLANK_POINT = {
+  type: '',
+  city: '',
+  offers: {},
+  basePrice: 0,
+  dateFrom: dayjs(),
+  dateTo: dayjs(),
+  isFavorite: false,
+};
 
 function createPointOffer (offers) {
   let result = '';
@@ -52,8 +62,7 @@ function createPoint (point) {
     isFavorite = false,
   } = point;
 
-  return `<ul class="trip-events__list">
-  <li class="trip-events__item">
+  return `<li class="trip-events__item">
     <div class="event">
       <time class="event__date" datetime="2019-03-19">${dayjs(dateFrom).format('MMM DD')}</time>
       <div class="event__type">
@@ -85,6 +94,30 @@ function createPoint (point) {
         <span class="visually-hidden">Open event</span>
       </button>
     </div>
-  </li>
-</ul>`;
+  </li>`;
 }
+
+class Point {
+  constructor(point = BLANK_POINT) {
+    this._point = point;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createPoint(this._point);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export {Point, createPoint};

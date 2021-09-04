@@ -1,9 +1,20 @@
 import {ucFirst} from '../utils/utils.js';
 import {OFFERS} from '../mock/offers.js';
 import {CITIES} from '../mock/point.js';
+import {createElement} from '../utils/utils.js';
 import dayjs from 'dayjs';
 
 const TYPES = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
+
+const BLANK_POINT = {
+  type: '',
+  city: '',
+  offers: {},
+  basePrice: 0,
+  dateFrom: dayjs(),
+  dateTo: dayjs(),
+  isFavorite: false,
+};
 
 const getAvailableOffers = (type) => {
   const offersAll = [];
@@ -99,4 +110,27 @@ function createEditionForm (point) {
 </form>`;
 }
 
-export {createEditionForm};
+class EditionForm {
+  constructor(point = BLANK_POINT) {
+    this._point = point;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEditionForm(this._point);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export {EditionForm};
