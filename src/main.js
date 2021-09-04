@@ -2,20 +2,21 @@ import {EditionForm} from './view/form-of-edition.js';
 import {Filters} from './view/filters.js';
 import {SiteMenu} from './view/menu.js';
 import {Point} from './view/route-point.js';
-import {createRouteInfo} from './view/route-info.js';
+import {RouteInfo} from './view/route-info.js';
 import {SortBy} from './view/sort.js';
-import {createTripPrice} from './view/trip-price.js';
+import {TripPrice} from './view/trip-price.js';
 import {generatePoint} from './mock/point.js';
-import {renderTemplate, renderElement, RenderPosition} from './utils/utils.js';
+import {renderElement, RenderPosition} from './utils/utils.js';
 
 const POINT_COUNT = 15;
 
 const points = new Array(POINT_COUNT).fill().map(generatePoint);
 
 const tripMain = document.querySelector('.trip-main');
-renderTemplate(tripMain, createRouteInfo(points[0]), 'afterbegin');
+renderElement(tripMain, new RouteInfo().getElement(), RenderPosition.AFTERBEGIN);
+
 const tripInfo = document.querySelector('.trip-info');
-renderTemplate(tripInfo, createTripPrice(), 'beforeend');
+renderElement(tripInfo, new TripPrice().getElement(), RenderPosition.BEFOREEND);
 
 const tripNavigation = document.querySelector('.trip-controls__navigation');
 

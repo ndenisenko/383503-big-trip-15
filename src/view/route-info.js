@@ -1,3 +1,5 @@
+import {createElement} from '../utils/utils.js';
+
 function createRouteInfo () {
   return `<section class="trip-main__trip-info  trip-info">
     <div class="trip-info__main">
@@ -8,4 +10,26 @@ function createRouteInfo () {
   </section>`;
 }
 
-export {createRouteInfo};
+class RouteInfo {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createRouteInfo();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export {RouteInfo};
