@@ -1,4 +1,4 @@
-import {createElement} from '../utils/utils.js';
+import {Abstract} from './abstract.js';
 
 function createRouteInfo () {
   return `<section class="trip-main__trip-info  trip-info">
@@ -10,25 +10,9 @@ function createRouteInfo () {
   </section>`;
 }
 
-class RouteInfo {
-  constructor() {
-    this._element = null;
-  }
-
+class RouteInfo extends Abstract {
   getTemplate() {
     return createRouteInfo();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 

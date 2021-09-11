@@ -6,27 +6,27 @@ import {RouteInfo} from './view/route-info.js';
 import {SortBy} from './view/sort.js';
 import {TripPrice} from './view/trip-price.js';
 import {generatePoint} from './mock/point.js';
-import {renderElement, RenderPosition} from './utils/utils.js';
+import {render, RenderPosition} from './utils/render.js';
 
 const POINT_COUNT = 15;
 
 const points = new Array(POINT_COUNT).fill().map(generatePoint);
 
 const tripMain = document.querySelector('.trip-main');
-renderElement(tripMain, new RouteInfo().getElement(), RenderPosition.AFTERBEGIN);
+render(tripMain, new RouteInfo().getElement(), RenderPosition.AFTERBEGIN);
 
 const tripInfo = document.querySelector('.trip-info');
-renderElement(tripInfo, new TripPrice().getElement(), RenderPosition.BEFOREEND);
+render(tripInfo, new TripPrice().getElement(), RenderPosition.BEFOREEND);
 
 const tripNavigation = document.querySelector('.trip-controls__navigation');
 
-renderElement(tripNavigation, new SiteMenu().getElement(), RenderPosition.BEFOREEND);
+render(tripNavigation, new SiteMenu().getElement(), RenderPosition.BEFOREEND);
 
 const filters = document.querySelector('.trip-controls__filters');
-renderElement(filters, new Filters().getElement(), RenderPosition.BEFOREEND);
+render(filters, new Filters().getElement(), RenderPosition.BEFOREEND);
 
 const tripEvents = document.querySelector('.trip-events');
-renderElement(tripEvents, new SortBy().getElement(), RenderPosition.AFTERBEGIN);
+render(tripEvents, new SortBy().getElement(), RenderPosition.AFTERBEGIN);
 
 const contentList = document.querySelector('.trip-events__list');
 
@@ -41,16 +41,23 @@ function renderPoint (pointList, point) {
   function replaceFormToPoint () {
     pointList.replaceChild(pointComponent.getElement(), pointEditComponent.getElement());
   }
-  pointComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', replacePointToForm);
 
-  pointEditComponent.getElement().addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    replaceFormToPoint();
+  pointComponent.setEditClickHandler(() => {
+    replacePointToForm();
   });
 
-  pointEditComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', replaceFormToPoint);
+  pointEditComponent.setSubmitClickHandler(() => {
+    replaceFormToPoint('submit');
+  });
 
-  renderElement(pointList, pointComponent.getElement(), RenderPosition.BEFOREEND);
+  pointEditComponent.setResetClickHandler(() => {
+    replaceFormToPoint('reset');
+  });
+
+  pointEditComponent.setSaveClickHanlder(() => {
+    replaceFormToPoint();
+  });
+  render(pointList, pointComponent.getElement(), RenderPosition.BEFOREEND);
 }
 
 for (let i = 1; i < POINT_COUNT; i++) {

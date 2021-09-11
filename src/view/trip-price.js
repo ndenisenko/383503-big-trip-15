@@ -1,4 +1,4 @@
-import {createElement} from '../utils/utils.js';
+import {Abstract} from './abstract.js';
 
 function createTripPrice () {
   return `<p class="trip-info__cost">
@@ -6,25 +6,9 @@ function createTripPrice () {
   </p>`;
 }
 
-class TripPrice {
-  constructor() {
-    this._element = null;
-  }
-
+class TripPrice extends Abstract {
   getTemplate() {
     return createTripPrice();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 
