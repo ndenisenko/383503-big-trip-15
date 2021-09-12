@@ -1,4 +1,4 @@
-import {createElement} from '../utils/utils.js';
+import {Abstract} from './abstract.js';
 
 const SORT_BY = ['day', 'event', 'time', 'price', 'offer'];
 
@@ -11,25 +11,9 @@ function createSort () {
   </form>`;
 }
 
-class SortBy {
-  constructor() {
-    this._element = null;
-  }
-
+class SortBy extends Abstract {
   getTemplate() {
     return createSort();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 

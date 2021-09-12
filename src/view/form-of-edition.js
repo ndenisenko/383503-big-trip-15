@@ -1,8 +1,8 @@
-import {ucFirst} from '../utils/utils.js';
+import {ucFirst} from '../utils/uc-first.js';
 import {OFFERS} from '../mock/offers.js';
 import {CITIES} from '../mock/point.js';
-import {createElement} from '../utils/utils.js';
 import dayjs from 'dayjs';
+import {Abstract} from './abstract.js';
 
 const TYPES = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
 
@@ -110,26 +110,36 @@ function createEditionForm (point) {
 </form>`;
 }
 
-class EditionForm {
+class EditionForm extends Abstract {
   constructor(point = BLANK_POINT) {
+    super();
     this._point = point;
-    this._element = null;
+
+    this._saveClickHandler = this._saveClickHandler.bind(this);
+  }
+
+  _saveClickHandler(evt) {
+    evt.preventDefault();
+    this._callback.saveClick();
+  }
+
+  setSaveClickHanlder(callback) {
+    this._callback.saveClick = callback;
+    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._saveClickHandler);
+  }
+
+  setSubmitClickHandler(callback) {
+    this._callback.saveClick = callback;
+    this.getElement().addEventListener('submit', this._saveClickHandler);
+  }
+
+  setResetClickHandler(callback) {
+    this._callback.saveClick = callback;
+    this.getElement().addEventListener('reset', this._saveClickHandler);
   }
 
   getTemplate() {
     return createEditionForm(this._point);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 
