@@ -1,4 +1,4 @@
-import {Abstract} from './abstract.js';
+import {AbstractView} from './abstract.js';
 
 const SORT_BY = ['day', 'event', 'time', 'price', 'offer'];
 
@@ -11,10 +11,10 @@ function createSort () {
   </form>`;
 }
 
-class SortBy extends Abstract {
+class SortView extends AbstractView {
   getTemplate() {
     return createSort();
   }
 }
 
-export {SortBy};
+export {SortView};

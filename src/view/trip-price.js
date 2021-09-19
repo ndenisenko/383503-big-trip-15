@@ -1,4 +1,4 @@
-import {Abstract} from './abstract.js';
+import {AbstractView} from './abstract.js';
 
 function createTripPrice () {
   return `<p class="trip-info__cost">
@@ -6,10 +6,10 @@ function createTripPrice () {
   </p>`;
 }
 
-class TripPrice extends Abstract {
+class TripPriceView extends AbstractView {
   getTemplate() {
     return createTripPrice();
   }
 }
 
-export {createTripPrice, TripPrice};
+export {createTripPrice, TripPriceView};

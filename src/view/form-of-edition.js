@@ -2,7 +2,7 @@ import {ucFirst} from '../utils/uc-first.js';
 import {OFFERS} from '../mock/offers.js';
 import {CITIES} from '../mock/point.js';
 import dayjs from 'dayjs';
-import {Abstract} from './abstract.js';
+import {AbstractView} from './abstract.js';
 
 const TYPES = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
 
@@ -110,7 +110,7 @@ function createEditionForm (point) {
 </form>`;
 }
 
-class EditionForm extends Abstract {
+class EditionFormView extends AbstractView {
   constructor(point = BLANK_POINT) {
     super();
     this._point = point;
@@ -143,4 +143,4 @@ class EditionForm extends Abstract {
   }
 }
 
-export {EditionForm};
+export {EditionFormView};

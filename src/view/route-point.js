@@ -1,7 +1,7 @@
 import {ucFirst} from '../utils/uc-first.js';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration.js';
-import {Abstract} from './abstract.js';
+import {AbstractView} from './abstract.js';
 
 const BLANK_POINT = {
   type: '',
@@ -97,16 +97,22 @@ function createPoint (point) {
   </li>`;
 }
 
-class Point extends Abstract {
+class PointView extends AbstractView {
   constructor(point = BLANK_POINT) {
     super();
     this._point = point;
 
     this._editClickHandler = this._editClickHandler.bind(this);
+    this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
   }
 
   getTemplate() {
     return createPoint(this._point);
+  }
+
+  _favoriteClickHandler(evt) {
+    evt.preventDefault();
+    this._callback.favoriteClick();
   }
 
   _editClickHandler(evt) {
@@ -118,6 +124,11 @@ class Point extends Abstract {
     this._callback.editClick = callback;
     this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._editClickHandler);
   }
+
+  setFavoriteClickHandler(callback) {
+    this._callback.favoriteClick = callback;
+    this.getElement().querySelector('.event__favorite-btn').addEventListener('click', this._favoriteClickHandler);
+  }
 }
 
-export {Point, createPoint};
+export {PointView, createPoint};

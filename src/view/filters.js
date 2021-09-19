@@ -1,4 +1,4 @@
-import {Abstract} from './abstract.js';
+import {AbstractView} from './abstract.js';
 
 const FILTERS = {
   everything: true,
@@ -18,10 +18,10 @@ function createFilters () {
   </form>`;
 }
 
-class Filters extends Abstract {
+class FiltersView extends AbstractView {
   getTemplate() {
     return createFilters();
   }
 }
 
-export {Filters};
+export {FiltersView};

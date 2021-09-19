@@ -1,4 +1,4 @@
-import {Abstract} from './abstract.js';
+import {AbstractView} from './abstract.js';
 
 function createNavigation () {
   return `<nav class="trip-controls__trip-tabs  trip-tabs">
@@ -7,10 +7,10 @@ function createNavigation () {
   </nav>`;
 }
 
-class SiteMenu extends Abstract {
+class SiteMenuView extends AbstractView {
   getTemplate() {
     return createNavigation();
   }
 }
 
-export {SiteMenu};
+export {SiteMenuView};

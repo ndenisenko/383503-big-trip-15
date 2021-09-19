@@ -1,8 +1,8 @@
 import {createElement} from '../utils/create-element.js';
 
-class Abstract {
+class AbstractView {
   constructor() {
-    if (new.target === Abstract) {
+    if (new.target === AbstractView) {
       throw new Error('Can\'t instantiate Abstract, only concrete one.');
     }
 
@@ -27,4 +27,4 @@ class Abstract {
   }
 }
 
-export {Abstract};
+export {AbstractView};

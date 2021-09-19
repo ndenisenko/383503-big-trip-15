@@ -1,4 +1,4 @@
-import {Abstract} from './abstract.js';
+import {AbstractView} from './abstract.js';
 
 function createRouteInfo () {
   return `<section class="trip-main__trip-info  trip-info">
@@ -10,10 +10,10 @@ function createRouteInfo () {
   </section>`;
 }
 
-class RouteInfo extends Abstract {
+class RouteInfoView extends AbstractView {
   getTemplate() {
     return createRouteInfo();
   }
 }
 
-export {RouteInfo};
+export {RouteInfoView};

@@ -12,6 +12,7 @@ const START_OFFSET_IN_DAYS = 7;
 const MAX_EVENT_DURATION_IN_MINUTES = 1440;
 const MIN_PHOTOS_NUMBER = 0;
 const MAX_PHOTOS_NUMBER = 5;
+const MAX_NUM_FOR_ID = 100;
 
 const mockText = ['Lorem ipsum dolor sit amet, consectetur adipiscing elit', 'Cras aliquet varius magna, non porta ligula feugiat eget',
   'Fusce tristique felis at fermentum pharetra', 'Aliquam id orci ut lectus varius viverra', 'Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante',
@@ -86,7 +87,7 @@ function generatePoint () {
     basePrice: getRandomPrice(),
     dateFrom: dateFrom.toDate(),
     dateTo: dateTo.toDate(),
-    id: '0',
+    id: getRandomInteger(0, MAX_NUM_FOR_ID),
     isFavorite: isFavorite(),
     destination: getDestination(),
   };
